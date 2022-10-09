@@ -1,30 +1,26 @@
-import { ChangeEvent, ChangeEventHandler, FC, useState } from 'react';
+import { ChangeEvent, ChangeEventHandler, FC, useState } from 'react'
 
-import { OtpProps } from './types';
-import './style.css';
+import { OtpProps } from './types'
+import './style.css'
 
 const OtpField: FC<OtpProps> = props => {
-  const { counts = 4, autoFocus = false, onChange, ...htmlInputProps } = props;
+  const { counts = 4, autoFocus = false, onChange, ...htmlInputProps } = props
 
-  const [values, setValues] = useState(
-    Array.from({ length: counts }).fill('') as string[]
-  );
+  const [values, setValues] = useState(Array.from({ length: counts }).fill('') as string[])
 
   const handleChange = (inputIndex: number) => {
     return (e: ChangeEvent<HTMLInputElement>) => {
       setValues(prevValues => {
-        const newValue = e.target.value.trim();
+        const newValue = e.target.value.trim()
 
-        const newValues = prevValues.map((value, index) =>
-          index === inputIndex ? newValue : value
-        );
+        const newValues = prevValues.map((value, index) => (index === inputIndex ? newValue : value))
 
-        onChange?.(newValues.join(''));
+        onChange?.(newValues.join(''))
 
-        return newValues;
-      });
-    };
-  };
+        return newValues
+      })
+    }
+  }
 
   return (
     <div className='otp-wrapper'>
@@ -36,7 +32,7 @@ const OtpField: FC<OtpProps> = props => {
         />
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default OtpField;
+export default OtpField
