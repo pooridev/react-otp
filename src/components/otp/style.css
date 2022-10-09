@@ -1,0 +1,22 @@
+.otp-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  zoom: 2;
+}
+
+.otp-input {
+  width: 50px;
+  height: 50px;
+  border-radius: 0.4rem;
+  outline: none;
+  border: 2px solid #242424;
+  text-align: center;
+  font-size: 1.2rem;
+  transition: border-color 0.3s;
+}
+
+.otp-input:focus {
+  border-color: #535bf2;
+}
