@@ -1,6 +1,8 @@
 import { HTMLProps } from 'react'
 
-export type OtpProps = Omit<Partial<HTMLProps<HTMLInputElement>>, 'onChange'> & {
+type HtmlInputProps = Partial<HTMLProps<HTMLInputElement>>
+
+export type OtpProps = Omit<HtmlInputProps, 'onChange'> & {
   counts?: number
   onChange: (value: string) => void
 }
