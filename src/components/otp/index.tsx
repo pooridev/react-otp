@@ -4,7 +4,7 @@ import { OtpProps } from './types'
 import './style.css'
 
 const OtpField: FC<OtpProps> = props => {
-  const { counts = 4, autoFocus = false, onChange, ...htmlInputProps } = props
+  const { fields = 4, autoFocus = false, onChange, value = '', ...htmlInputProps } = props
 
   const [values, setValues] = useState(Array.from({ length: counts }).fill('') as string[])
 
