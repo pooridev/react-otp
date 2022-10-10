@@ -1,6 +1,6 @@
 import { ChangeEvent, ChangeEventHandler, FC, KeyboardEvent, memo, useState } from 'react'
 
-import { OtpProps } from './types'
+import { KEYBOARD_KEYS, OtpProps } from './types'
 import './style.css'
 import { convertStringValueToAValidOtpValue, isValidNumber } from '../../utils/functions'
 
@@ -38,17 +38,17 @@ const OtpField: FC<OtpProps> = props => {
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const { key, target } = e
 
-    if (key === 'ArrowRight' || key === 'ArrowDown') {
+    if (key === KEYBOARD_KEYS.ARROW_RIGHT) {
       e.preventDefault()
       focusNext(target as HTMLInputElement)
     }
 
-    if (key === 'ArrowLeft' || key === 'ArrowUp') {
+    if (key === KEYBOARD_KEYS.ARROW_LEFT) {
       e.preventDefault()
       focusPrev(target as HTMLInputElement)
     }
 
-    if (key === 'Backspace' && (target as HTMLInputElement).value === '') {
+    if (key === KEYBOARD_KEYS.BACK_SPACE && (target as HTMLInputElement).value === '') {
       focusPrev(target as HTMLInputElement)
     }
   }
