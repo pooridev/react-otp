@@ -1,4 +1,4 @@
-import { ChangeEvent, ChangeEventHandler, FC, memo, useState } from 'react'
+import { ChangeEvent, ChangeEventHandler, FC, KeyboardEvent, memo, useState } from 'react'
 
 import { OtpProps } from './types'
 import './style.css'
@@ -35,6 +35,24 @@ const OtpField: FC<OtpProps> = props => {
     previousElementSibling?.focus()
   }
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    const { key, target } = e
+
+    if (key === 'ArrowRight' || key === 'ArrowDown') {
+      e.preventDefault()
+      focusNext(target as HTMLInputElement)
+    }
+
+    if (key === 'ArrowLeft' || key === 'ArrowUp') {
+      e.preventDefault()
+      focusPrev(target as HTMLInputElement)
+    }
+
+    if (key === 'Backspace' && (target as HTMLInputElement).value === '') {
+      focusPrev(target as HTMLInputElement)
+    }
+  }
+
   return (
     <div className='otp-wrapper'>
       {values.map((_, index) => (
@@ -48,6 +66,7 @@ const OtpField: FC<OtpProps> = props => {
           value={values[index]}
           tabIndex={0}
           autoFocus={autoFocus && index === 0}
+          onKeyDown={handleKeyDown}
         />
       ))}
     </div>
