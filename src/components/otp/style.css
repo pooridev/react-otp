@@ -3,7 +3,6 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  zoom: 2;
 }
 
 .otp-input {
@@ -17,6 +16,16 @@
   transition: border-color 0.3s;
 }
 
+.otp-input:hover {
+  border-color: #535bf291;
+}
+
 .otp-input:focus {
   border-color: #535bf2;
+}
+
+@media (min-width: 768px) {
+  .otp-wrapper {
+    zoom: 2;
+  }
 }
