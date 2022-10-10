@@ -1,8 +1,8 @@
 import { ChangeEvent, ChangeEventHandler, FC, KeyboardEvent, memo, useState } from 'react'
 
 import { KEYBOARD_KEYS, OtpProps } from './types'
+import { convertStringValueToAValidOtpValue, isValidNumber } from 'utils/functions'
 import './style.css'
-import { convertStringValueToAValidOtpValue, isValidNumber } from '../../utils/functions'
 
 const OtpField: FC<OtpProps> = props => {
   const { fields = 4, autoFocus = false, onChange, value = '', ...htmlInputProps } = props
