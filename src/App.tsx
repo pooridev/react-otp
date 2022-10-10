@@ -9,11 +9,11 @@ function App() {
   return (
     <div className='App'>
       <OtpField
+        fields={5}
         value={value}
         onChange={value => {
-          console.log(value)
+          setValue(value)
         }}
-        counts={4}
       />
     </div>
   )
