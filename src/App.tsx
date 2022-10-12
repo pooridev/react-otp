@@ -9,13 +9,7 @@ function App() {
   return (
     <div className='App'>
       <h1>React OTP Input</h1>
-      <OtpField
-        fields={5}
-        value={'88888888'}
-        onChange={value => {
-          setValue(value)
-        }}
-      />
+      <OtpField fields={5} value={value} onChange={newValue => setValue(newValue)} />
     </div>
   )
 }
