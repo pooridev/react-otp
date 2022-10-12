@@ -1,4 +1,4 @@
-import { ChangeEvent, ChangeEventHandler, FC, FocusEvent, KeyboardEvent, memo, useState } from 'react'
+import { ChangeEvent, ClipboardEvent, FC, FocusEvent, KeyboardEvent, memo, useState } from 'react'
 
 import { KEYBOARD_KEYS, OtpProps } from './types'
 import { convertStringValueToAValidOtpValue, isValidNumber } from '@utils/functions'
@@ -17,15 +17,16 @@ const OtpField: FC<OtpProps> = props => {
 
       setValues(prevValues => {
         const newValues = prevValues.map((oldValue, index) => (index === inputIndex ? newValue : oldValue))
-        // Prevent concurrent re-rendering
         onChange?.(newValues.join(''))
+
         return newValues
       })
+
       if (newValue) focusNext(e.target)
     }
   }
 
-  // Select the input value when user clickes on the input
+  // Select the input value when user focus on the input
   const handleFocus = (e: FocusEvent<HTMLInputElement>) => {
     e.target.focus()
     e.target.setSelectionRange(0, e.target.value.length)
@@ -64,22 +65,33 @@ const OtpField: FC<OtpProps> = props => {
     }
   }
 
+  function handlePaste(e: ClipboardEvent<HTMLInputElement>) {
+    const copiedText = e.clipboardData.getData('text').trim()
+
+    if (isValidNumber(copiedText) && copiedText.length === fields) {
+      onChange?.(copiedText)
+      return setValues(copiedText.split(''))
+    }
+
+    e.preventDefault()
+  }
+
   return (
     <div className='otp-wrapper'>
       {values.map((_, index) => (
         <input
           {...htmlInputProps}
           key={index}
-          inputMode='decimal'
-          maxLength={fields}
+          inputMode='numeric'
           className={`otp-input ${htmlInputProps.className}`}
           onChange={handleChange(index)}
           onFocus={handleFocus}
+          onKeyDown={handleKeyDown}
+          onPaste={handlePaste}
           maxLength={1}
           value={values[index]}
           tabIndex={0}
           autoFocus={autoFocus && index === 0}
-          onKeyDown={handleKeyDown}
         />
       ))}
     </div>

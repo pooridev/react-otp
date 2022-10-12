@@ -13,4 +13,5 @@ export enum KEYBOARD_KEYS {
   ARROW_RIGHT = 'ArrowRight',
   ARROW_LEFT = 'ArrowLeft',
   BACK_SPACE = 'Backspace',
+  DELETE = 'Delete',
 }
