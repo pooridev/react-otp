@@ -65,7 +65,7 @@ const OtpField: FC<OtpProps> = props => {
     }
   }
 
-  function handlePaste(e: ClipboardEvent<HTMLInputElement>) {
+  const handlePaste = (e: ClipboardEvent<HTMLInputElement>) => {
     const copiedText = e.clipboardData.getData('text').trim()
 
     if (isValidNumber(copiedText) && copiedText.length === fields) {
