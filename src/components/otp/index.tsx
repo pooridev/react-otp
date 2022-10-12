@@ -1,4 +1,4 @@
-import { ChangeEvent, ChangeEventHandler, FC, KeyboardEvent, memo, useState } from 'react'
+import { ChangeEvent, ChangeEventHandler, FC, FocusEvent, KeyboardEvent, memo, useState } from 'react'
 
 import { KEYBOARD_KEYS, OtpProps } from './types'
 import { convertStringValueToAValidOtpValue, isValidNumber } from '@utils/functions'
@@ -13,16 +13,22 @@ const OtpField: FC<OtpProps> = props => {
     return (e: ChangeEvent<HTMLInputElement>) => {
       const newValue = e.target.value.trim()
 
-      if (!isValidNumber(newValue)) return
+      if (!isValidNumber(newValue) || newValue.length === fields) return
 
       setValues(prevValues => {
         const newValues = prevValues.map((oldValue, index) => (index === inputIndex ? newValue : oldValue))
         // Prevent concurrent re-rendering
-        setTimeout(() => onChange?.(newValues.join('')), 0)
+        onChange?.(newValues.join(''))
         return newValues
       })
-      focusNext(e.target)
+      if (newValue) focusNext(e.target)
     }
+  }
+
+  // Select the input value when user clickes on the input
+  const handleFocus = (e: FocusEvent<HTMLInputElement>) => {
+    e.target.focus()
+    e.target.setSelectionRange(0, e.target.value.length)
   }
 
   const focusNext = (target: HTMLInputElement) => {
@@ -35,6 +41,7 @@ const OtpField: FC<OtpProps> = props => {
     previousElementSibling?.focus()
   }
 
+  // Navigate between inputs using keyboard
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const { key, target } = e
 
@@ -63,6 +70,7 @@ const OtpField: FC<OtpProps> = props => {
           maxLength={fields}
           className={`otp-input ${htmlInputProps.className}`}
           onChange={handleChange(index)}
+          onFocus={handleFocus}
           value={values[index]}
           tabIndex={0}
           autoFocus={autoFocus && index === 0}
