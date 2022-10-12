@@ -8,6 +8,7 @@ function App() {
 
   return (
     <div className='App'>
+      <h1>React OTP Input</h1>
       <OtpField
         fields={5}
         value={value}
