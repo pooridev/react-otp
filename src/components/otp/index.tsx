@@ -71,6 +71,7 @@ const OtpField: FC<OtpProps> = props => {
           className={`otp-input ${htmlInputProps.className}`}
           onChange={handleChange(index)}
           onFocus={handleFocus}
+          maxLength={1}
           value={values[index]}
           tabIndex={0}
           autoFocus={autoFocus && index === 0}
