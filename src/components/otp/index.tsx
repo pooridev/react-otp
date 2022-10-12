@@ -58,6 +58,10 @@ const OtpField: FC<OtpProps> = props => {
     if (key === KEYBOARD_KEYS.BACK_SPACE && (target as HTMLInputElement).value === '') {
       focusPrev(target as HTMLInputElement)
     }
+
+    if (key === KEYBOARD_KEYS.DELETE && (target as HTMLInputElement).value === '') {
+      focusNext(target as HTMLInputElement)
+    }
   }
 
   return (
